@@ -1,13 +1,13 @@
 import { test, expect, Locator} from '@playwright/test';
 
-// const urlToNavigate: string = 'https://sivaprasadnk.dev/';
+const urlToNavigateFB: string = 'https://facebook.com/';
 // async def log_in():
 const urlToNavigate: string = 'http://172.16.0.117:8080/ui/login';
 const userName: string = 'tester_user2';
 const userPass: string = 'Eclipse123';
 
 test('Log in/out', async ({ page }, testInfo) => {
-  // await page.goto('https://playwright.dev/');
+  test.skip(true,'Skipping on the Gitnub Actions');
   await page.goto(urlToNavigate);
 
   await page.locator('css=input[formcontrolname="username"]').fill(userName);
@@ -29,21 +29,28 @@ test('Log in/out', async ({ page }, testInfo) => {
 
   await page.waitForTimeout(1500)
   await page.close()
-
-
-  // Expect a title "to contain" a substring.
-  // await expect(page).toHaveTitle(/Sivaprasad NK/);
 });
 
 
-// test('has title', async ({ page }) => {
-//   // await page.goto('https://playwright.dev/');
-//   await page.goto(urlToNavigate);
-//
-//
-//   // Expect a title "to contain" a substring.
-//   await expect(page).toHaveTitle(/Sivaprasad NK/);
-// });
+test('Check Facebook', async ({ page }, testInfo) => {
+  await page.goto(urlToNavigateFB);
+
+
+  await page.getByTestId('royal-email').fill(userName);
+  await page.getByTestId('royal-pass').fill(userPass);
+
+
+  // Expect a title "to contain" a substring.
+  const LogInBtn: Locator = page.getByTestId('royal-login-button');
+  await expect(LogInBtn).toBeVisible({timeout: 15 * 1000});
+
+  const submitBtnPng: Buffer = await page.screenshot({ fullPage: true});
+
+  await testInfo.attach('Facebook screen', {
+    body: submitBtnPng,
+    contentType: 'image/png',
+});
+});
 
 // test('get started link', async ({ page }) => {
 //   await page.goto(urlToNavigate);
