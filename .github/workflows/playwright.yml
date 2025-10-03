@@ -1,16 +1,45 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+#  push:
+#    branches: [ main, master ]
+#  pull_request:
+#    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'info'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+#      test:
+#        description: 'True to print to STDOUT'
+#        required: true
+#        type: boolean
+#      tags:
+#        description: 'Test scenario tags'
+#        required: true
+#        type: string
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - name: Display the info
+      run: |
+        echo "Log Level: ${{ github.event.inputs.logLevel }}"
+        echo "Environment: ${{ github.event.inputs.environment }}"
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Set up node
+      uses: actions/setup-node@v4
       with:
         node-version: lts/*
     - name: Install dependencies
