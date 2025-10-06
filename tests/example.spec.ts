@@ -40,7 +40,7 @@ test.describe('Login tests', async () => {
             contentType: 'image/png',
         });
 
-        await page.waitForTimeout(1500)
+        await page.waitForTimeout(1500);
         await page.close()
     });
 
