@@ -2,9 +2,12 @@ import { test, expect, Locator} from '@playwright/test';
 
 const urlToNavigateFB: string = 'https://facebook.com/';
 // async def log_in():
-const urlToNavigate: string = 'http://172.16.0.117:8080/ui/login';
-const userName: string = 'tester_user2';
-const userPass: string = 'Eclipse123';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+const urlToNavigate = 'http://172.16.0.117:8080/ui/login';
+const userName = process.env.USER_NAME || '';
+const userPass = process.env.USER_PASSWORD || '';
 
 async function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
