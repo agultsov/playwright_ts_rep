@@ -25,6 +25,7 @@ dist-ssr
 .env
 
 # Playwright
+/allure-results/
 /test-results/
 /playwright-report/
 /blob-report/
